@@ -64,7 +64,6 @@ fun PantallaInicio(modifier: Modifier=Modifier){
         }
     }
 }
-//COMENTARIO PRUEBA
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun MPI(){
