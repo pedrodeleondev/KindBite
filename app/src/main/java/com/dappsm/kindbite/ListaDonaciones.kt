@@ -25,6 +25,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.lazy.items
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 
 data class Donaciones(val id:Int, val nameDonante:String, val tipoDonacion:String, val Cantidad:Double, val DateDonacion: String, val StatusDonacion:String)
 
@@ -46,6 +49,38 @@ fun cardDonante(){
     val donaciones = donacionesBase()
     LazyColumn {
         items (donaciones) { donacion ->
+            val textDonacion = buildAnnotatedString {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
+                    append("Donación:")
+                }
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${donacion.tipoDonacion} kgs")
+                }
+            }
+            val textCantidad = buildAnnotatedString {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
+                    append("Cantidad:")
+                }
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${donacion.Cantidad}")
+                }
+            }
+            val textDateDonacion = buildAnnotatedString {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
+                    append("Fecha de donación:")
+                }
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${donacion.DateDonacion}")
+                }
+            }
+            val textStatusDonacion = buildAnnotatedString {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
+                    append("Estado de donación:")
+                }
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${donacion.StatusDonacion}")
+                }
+            }
             Card(
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFFFDF9ED)),
                 shape = RectangleShape,
@@ -61,7 +96,7 @@ fun cardDonante(){
                 )
                 Spacer(modifier = Modifier.size(9.dp))
                 Text(
-                    "Donación: ${donacion.tipoDonacion} kgs",
+                    textDonacion,
                     textAlign = TextAlign.Center,
                     style = TextStyle(
                         fontSize = 14.sp,
@@ -71,7 +106,7 @@ fun cardDonante(){
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
                 Text(
-                    "Cantidad: ${donacion.Cantidad} kgs",
+                    textCantidad,
                     textAlign = TextAlign.Center,
                     style = TextStyle(
                         fontSize = 14.sp,
@@ -81,7 +116,7 @@ fun cardDonante(){
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
                 Text(
-                    "Fecha de donación: ${donacion.DateDonacion}",
+                    textDateDonacion,
                     textAlign = TextAlign.Center,
                     style = TextStyle(
                         fontSize = 14.sp,
@@ -91,7 +126,7 @@ fun cardDonante(){
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
                 Text(
-                    "Estado de la donación: ${donacion.StatusDonacion}",
+                    textStatusDonacion,
                     textAlign = TextAlign.Center,
                     style = TextStyle(
                         fontSize = 14.sp,

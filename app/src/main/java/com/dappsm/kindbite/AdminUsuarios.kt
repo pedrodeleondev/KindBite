@@ -32,12 +32,55 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 
 @Composable
 fun cardUsuarios(){
     val usuarios = usuariosBase()
     LazyColumn (modifier = Modifier.padding(12.dp)) {
         items (usuarios) { usuario ->
+            val textId = buildAnnotatedString {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
+                    append("Id:")
+                }
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${usuario.id}")
+                }
+            }
+            val textName = buildAnnotatedString {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
+                    append("Nombre del usuario:")
+                }
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${usuario.nombre}")
+                }
+            }
+            val textTipoUser = buildAnnotatedString {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
+                        append("Tipo de usuario:")
+                }
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${usuario.tipoUsuario}")
+                }
+            }
+            val textCorreo = buildAnnotatedString {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
+                    append("Correo:")
+                }
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${usuario.email}")
+                }
+            }
+            val textContrasena = buildAnnotatedString {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
+                    append("Contraseña:")
+                }
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${usuario.contrasena}")
+                }
+            }
             Card(
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFFDF9ED)),
                 shape = RectangleShape,
@@ -46,40 +89,36 @@ fun cardUsuarios(){
                     .padding(10.dp)
             ) {
                 Text(
-                    text = "Id: ${usuario.id}",
-                    style = TextStyle(fontSize = 16.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.SemiBold),
+                    textId,
+                    style = TextStyle(fontSize = 16.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.Medium),
                     modifier = Modifier.fillMaxWidth().padding(top = 15.dp)
                 )
                 Spacer(modifier = Modifier.size(9.dp))
                 Text(
-                    "Nombre de usuario: ${usuario.nombre}",
+                    textName,
                     style = TextStyle(
-                        fontSize = 16.sp,
-                        color = Color(0xFFFC8D3F),
-                        fontWeight = FontWeight.Normal
+                        fontSize = 16.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.Medium
                     ),
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
                 Text(
-                    "Tipo de usuario: ${usuario.tipoUsuario}",
+                    textTipoUser,
                     style = TextStyle(
-                        fontSize = 16.sp,
-                        color = Color(0xFFFC8D3F),
-                        fontWeight = FontWeight.Normal
+                        fontSize = 16.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.Medium
                     ),
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
                 Text(
-                    "Correo: ${usuario.email}",
+                    textCorreo,
                     style = TextStyle(
                         fontSize = 16.sp,
                         color = Color(0xFFFC8D3F),
-                        fontWeight = FontWeight.Normal
+                        fontWeight = FontWeight.Medium
                     ),
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
                 Text(
-                    "Contraseña: ${usuario.contrasena}",
+                    textContrasena,
                     style = TextStyle(
                         fontSize = 16.sp,
                         color = Color(0xFFFC8D3F),
