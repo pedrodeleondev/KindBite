@@ -69,16 +69,17 @@ fun IniciaSesion(modifier: Modifier=Modifier){
     ){
         Column(modifier = Modifier.width(320.dp), verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally){
-            Text("Bienvenido", fontSize = 20.sp,fontWeight= FontWeight.Thin)
+            Text("Bienvenido", fontSize = 20.sp,fontWeight= FontWeight.W200)
             Spacer(modifier = Modifier.size(10.dp))
             Text(text="INICIA SESIÓN", fontWeight= FontWeight.Bold, fontSize = 25.sp,color=Color(0xFFFC8D3F))
             Spacer(modifier=Modifier.size(30.dp))
             Column(){
                 Text("Nombre de usuario:", fontSize = 20.sp,color=Color(0xFFFC8D3F))
+                Spacer(modifier = Modifier.size(7.dp))
                 OutlinedTextField(
                     value = inputN,
                     onValueChange = { inputN= it },
-                    modifier = Modifier.fillMaxWidth().height(50.dp),
+                    modifier = Modifier.fillMaxWidth().height(60.dp),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color(0xFFFC8D3F),
                         unfocusedBorderColor = Color(0xFFFC8D3F),
@@ -88,10 +89,11 @@ fun IniciaSesion(modifier: Modifier=Modifier){
                     ))
                 Spacer(modifier = Modifier.size(15.dp))
                 Text("Contraseña:",fontSize = 20.sp,color=Color(0xFFFC8D3F))
+                Spacer(modifier = Modifier.size(7.dp))
                 OutlinedTextField(
                     value = inputC,
                     onValueChange = { inputC= it },
-                    modifier = Modifier.fillMaxWidth().height(50.dp),
+                    modifier = Modifier.fillMaxWidth().height(60.dp),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color(0xFFFC8D3F),
                         unfocusedBorderColor = Color(0xFFFC8D3F),
@@ -113,7 +115,7 @@ fun IniciaSesion(modifier: Modifier=Modifier){
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFC8D3F)
                 )){
-                Text("Iniciar Sesión",fontSize = 18.sp)
+                Text("Iniciar Sesión",fontSize = 18.sp,fontWeight=FontWeight.W400)
             }
         }
     }
