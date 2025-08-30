@@ -1,5 +1,8 @@
 package com.dappsm.kindbite
 
+import androidx.navigation.NavController
+import com.dappsm.kindbite.navigation.AppScreens
+
 data class Usuario(val id:Int, val nombre:String, val tipoUsuario:String, val email:String, val contrasena:String)
 
 object Sesion {
@@ -12,7 +15,11 @@ fun usuariosBase():List<Usuario>{
     )
     return usuarios
 }
-fun compararUsuarios(n:String,c:String):Boolean{
+fun llamarComposableLD(navController: NavController){
+    navController.popBackStack()
+    navController.navigate(AppScreens.MainScreen.route)
+}
+fun compararUsuarios(n:String,c:String,navController: NavController):Boolean{
     Sesion.usuarioActual = null
     val usuarios=usuariosBase();
     var concederAcceso:Boolean=false
@@ -23,6 +30,7 @@ fun compararUsuarios(n:String,c:String):Boolean{
                 println("Correcto")
                 concederAcceso=true
                 Sesion.usuarioActual=u
+                llamarComposableLD(navController)
             }else{
                 println("Incorrecto")
             }

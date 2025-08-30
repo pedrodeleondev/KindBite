@@ -38,6 +38,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.dappsm.kindbite.navigation.AppNavigation
 import com.dappsm.kindbite.ui.theme.KindBiteTheme
 
 class Login : ComponentActivity() {
@@ -46,7 +48,7 @@ class Login : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             KindBiteTheme {
-                IniciaSesion()
+                AppNavigation()
             }
         }
     }
@@ -55,9 +57,13 @@ class Login : ComponentActivity() {
 
 
 
-
 @Composable
-fun IniciaSesion(modifier: Modifier=Modifier){
+fun MostrarIS(nC: NavController){
+    IniciaSesion(navController=nC)
+
+}
+@Composable
+fun IniciaSesion(modifier: Modifier=Modifier,navController: NavController){
     var inputN by rememberSaveable{mutableStateOf("")}
     var inputC by rememberSaveable{mutableStateOf("")}
     val context = LocalContext.current
@@ -105,7 +111,7 @@ fun IniciaSesion(modifier: Modifier=Modifier){
             }
             Spacer(modifier = Modifier.size(35.dp))
             Button(onClick={
-                val resultadoAcceso=compararUsuarios(inputN,inputC)
+                val resultadoAcceso=compararUsuarios(inputN,inputC,navController)
                 if (resultadoAcceso==true){
                     Toast.makeText(context, "Has iniciado sesión correctamente", Toast.LENGTH_SHORT).show()
                 }else{
@@ -121,10 +127,3 @@ fun IniciaSesion(modifier: Modifier=Modifier){
     }
 }
 
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun MostrarIS(){
-    IniciaSesion()
-}

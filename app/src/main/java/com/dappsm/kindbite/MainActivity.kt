@@ -23,10 +23,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -37,7 +39,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.dappsm.kindbite.navigation.AppNavigation
+import com.dappsm.kindbite.navigation.AppScreens
 import com.dappsm.kindbite.ui.theme.KindBiteTheme
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.time.delay
 
 
 class MainActivity : ComponentActivity() {
@@ -46,28 +53,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             KindBiteTheme {
-                IniciaSesion()
+                AppNavigation()
             }
         }
     }
-}
-@Composable
-fun PantallaInicio(modifier: Modifier=Modifier){
-    Column(modifier = Modifier.fillMaxSize().background(Color(0xFFFDF9ED)),  verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally){
-        Row (horizontalArrangement = Arrangement.Center,verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth())
-        {
-            Image(
-                painter = painterResource(R.drawable.logo),
-                contentDescription = null,
-                modifier=Modifier.size(230.dp)
-            )
-        }
-    }
-}
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun MPI(){
-    PantallaInicio()
 }
 
 
