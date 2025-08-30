@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.dappsm.kindbite.LoginViewModel
 import com.dappsm.kindbite.MainActivity
 import com.dappsm.kindbite.MostrarIS
 import com.dappsm.kindbite.MostrarLD

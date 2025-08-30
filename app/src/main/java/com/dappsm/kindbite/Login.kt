@@ -27,6 +27,7 @@ import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -38,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.dappsm.kindbite.navigation.AppNavigation
 import com.dappsm.kindbite.ui.theme.KindBiteTheme
@@ -59,13 +61,18 @@ class Login : ComponentActivity() {
 
 @Composable
 fun MostrarIS(nC: NavController){
-    IniciaSesion(navController=nC)
+    val vm: LoginViewModel = viewModel()
+    AgregarVMLogin(nC=nC, viewModel = vm)
 
 }
 @Composable
-fun IniciaSesion(modifier: Modifier=Modifier,navController: NavController){
-    var inputN by rememberSaveable{mutableStateOf("")}
-    var inputC by rememberSaveable{mutableStateOf("")}
+fun AgregarVMLogin(nC: NavController,viewModel: LoginViewModel){
+    IniciaSesion(navController=nC, viewModel = viewModel)
+}
+@Composable
+fun IniciaSesion(modifier: Modifier=Modifier,navController: NavController,viewModel: LoginViewModel){
+    val inputN:String by viewModel.usuario.observeAsState("")
+    val inputC:String by viewModel.contrasena.observeAsState("")
     val context = LocalContext.current
 
     Column(
@@ -84,7 +91,7 @@ fun IniciaSesion(modifier: Modifier=Modifier,navController: NavController){
                 Spacer(modifier = Modifier.size(7.dp))
                 OutlinedTextField(
                     value = inputN,
-                    onValueChange = { inputN= it },
+                    onValueChange = { nuevo -> viewModel.onLoginChanged(nuevo, inputC) },
                     modifier = Modifier.fillMaxWidth().height(60.dp),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color(0xFFFC8D3F),
@@ -98,7 +105,7 @@ fun IniciaSesion(modifier: Modifier=Modifier,navController: NavController){
                 Spacer(modifier = Modifier.size(7.dp))
                 OutlinedTextField(
                     value = inputC,
-                    onValueChange = { inputC= it },
+                    onValueChange = { nuevo -> viewModel.onLoginChanged(inputN, nuevo) },
                     modifier = Modifier.fillMaxWidth().height(60.dp),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color(0xFFFC8D3F),
@@ -111,10 +118,10 @@ fun IniciaSesion(modifier: Modifier=Modifier,navController: NavController){
             }
             Spacer(modifier = Modifier.size(35.dp))
             Button(onClick={
-                val resultadoAcceso=compararUsuarios(inputN,inputC,navController)
-                if (resultadoAcceso==true){
+                val result = viewModel.login(navController)
+                if (result) {
                     Toast.makeText(context, "Has iniciado sesión correctamente", Toast.LENGTH_SHORT).show()
-                }else{
+                } else {
                     Toast.makeText(context, "Usuario o contraseña incorrectos.", Toast.LENGTH_SHORT).show()
                 }
             },shape = RoundedCornerShape(5.dp),modifier=Modifier.fillMaxWidth().height(35.dp),
@@ -126,4 +133,5 @@ fun IniciaSesion(modifier: Modifier=Modifier,navController: NavController){
         }
     }
 }
+
 
