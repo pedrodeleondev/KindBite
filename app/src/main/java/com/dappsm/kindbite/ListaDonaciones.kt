@@ -28,6 +28,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import com.dappsm.kindbite.ui.theme.KindBiteTheme
 
 data class Donaciones(val id:Int, val nameDonante:String, val tipoDonacion:String, val Cantidad:Double, val DateDonacion: String, val StatusDonacion:String)
 
@@ -43,6 +48,17 @@ fun donacionesBase():List<Donaciones>{
     return donaciones
 }
 
+class ListaDonacion : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            KindBiteTheme {
+
+            }
+        }
+    }
+}
 
 @Composable
 fun cardDonante(){
@@ -158,6 +174,6 @@ fun ListaDonaciones(name: String){
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun MostrarS(){
+fun MostrarLD(){
     ListaDonaciones(name = "Frida")
 }
