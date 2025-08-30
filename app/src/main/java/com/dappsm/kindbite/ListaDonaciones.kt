@@ -32,10 +32,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dappsm.kindbite.ui.theme.KindBiteTheme
 
 data class Donaciones(val id:Int, val nameDonante:String, val tipoDonacion:String, val Cantidad:Double, val DateDonacion: String, val StatusDonacion:String)
@@ -65,102 +61,119 @@ class ListaDonacion : ComponentActivity() {
 }
 
 @Composable
-fun CardDonante(viewModel: DonacionesViewModel = viewModel()) {
-    val donaciones by viewModel.donaciones.observeAsState(emptyList())
-
-    LazyColumn (modifier = Modifier.size(width = 500.dp, height = 700.dp)){
-        items(donaciones) { donacion ->
-
-            val textId = buildAnnotatedString {
-                withStyle(SpanStyle(color = Color(0xFFFC8D3F))) {
-                    append("ID:")
-                }
-                withStyle(SpanStyle(color = Color.Black)) {
-                    append(" ${donacion.id}")
-                }
-            }
-
-            val textProducto = buildAnnotatedString {
-                withStyle(SpanStyle(color = Color(0xFFFC8D3F))) {
+fun cardDonante(){
+    val donaciones = donacionesBase()
+    LazyColumn {
+        items (donaciones) { donacion ->
+            val textDonacion = buildAnnotatedString {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
                     append("Donación:")
                 }
-                withStyle(SpanStyle(color = Color.Black)) {
-                    append(" ${donacion.producto}")
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${donacion.tipoDonacion} kgs")
                 }
             }
-
             val textCantidad = buildAnnotatedString {
-                withStyle(SpanStyle(color = Color(0xFFFC8D3F))) {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
                     append("Cantidad:")
                 }
-                withStyle(SpanStyle(color = Color.Black)) {
-                    append(" ${donacion.cantidad}")
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${donacion.Cantidad}")
                 }
             }
-
-            val textFecha = buildAnnotatedString {
-                withStyle(SpanStyle(color = Color(0xFFFC8D3F))) {
+            val textDateDonacion = buildAnnotatedString {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
                     append("Fecha de donación:")
                 }
-                withStyle(SpanStyle(color = Color.Black)) {
-                    append(" ${donacion.fecha}")
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${donacion.DateDonacion}")
                 }
             }
-
+            val textStatusDonacion = buildAnnotatedString {
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
+                    append("Estado de donación:")
+                }
+                withStyle(SpanStyle(color = Color.Black)){
+                    append(" ${donacion.StatusDonacion}")
+                }
+            }
             Card(
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFFDF9ED)),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFDF9ED)),
                 shape = RectangleShape,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp)
             ) {
                 Text(
-                    text = donacion.donador,
+                    text = "${donacion.nameDonante}",
                     textAlign = TextAlign.Center,
                     style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
-                    modifier = Modifier.fillMaxWidth().padding(top = 12.dp)
+                    modifier = Modifier.fillMaxWidth().padding(top = 15.dp)
                 )
                 Spacer(modifier = Modifier.size(9.dp))
-                Text(textId, modifier=Modifier.fillMaxWidth(), textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp))
-                Text(textProducto, modifier=Modifier.fillMaxWidth(),textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp))
-                Text(textCantidad, modifier=Modifier.fillMaxWidth(),textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp))
-                Text(textFecha, modifier=Modifier.fillMaxWidth(),textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp))
-                Spacer(modifier = Modifier.size(20.dp))
-                Divider(
-                    modifier = Modifier.fillMaxWidth().height(1.dp),
-                    color = Color(0xFFFC8D3F)
+                Text(
+                    textDonacion,
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        color = Color(0xFFFC8D3F),
+                        fontWeight = FontWeight.Normal
+                    ),
+                    modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
+                Text(
+                    textCantidad,
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        color = Color(0xFFFC8D3F),
+                        fontWeight = FontWeight.Normal
+                    ),
+                    modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
+                )
+                Text(
+                    textDateDonacion,
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        color = Color(0xFFFC8D3F),
+                        fontWeight = FontWeight.Normal
+                    ),
+                    modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
+                )
+                Text(
+                    textStatusDonacion,
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        color = Color(0xFFFC8D3F),
+                        fontWeight = FontWeight.Normal
+                    ),
+                    modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 15.dp)
+                )
+
+                Divider(modifier = Modifier.fillMaxWidth().height(1.dp), color = Color(0xFFFC8D3F))
             }
         }
     }
 }
 
-
 @Composable
-fun ListaDonaciones(nombre: String, viewModel: DonacionesViewModel = viewModel()) {
-    val bienvenida = "Hola $nombre!"
+fun ListaDonaciones(name: String){
+    var bienvenida = "Hola  " + name + "!"
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFFDF9ED))
-            .padding(25.dp),
+        modifier = Modifier.fillMaxSize().background(Color(0xFFFDF9ED)).padding(25.dp),
         verticalArrangement = Arrangement.Top
-    ) {
-        Text(
-            "Lista de donaciones",
-            style = TextStyle(fontSize = 24.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.Bold)
-        )
-        Text(
-            text = bienvenida,
-            style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.ExtraLight)
-        )
+    ){
+        Text("Lista de donaciones", style = TextStyle(fontSize = 24.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.Bold))
+        Text(text = bienvenida, style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.ExtraLight))
         Spacer(modifier = Modifier.size(15.dp))
-        CardDonante(viewModel)
+        cardDonante()
     }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun MostrarLD(){
-    ListaDonaciones(Sesion.usuarioActual?.nombre?:"Invitado")
+    ListaDonaciones(name = "Frida")
 }
