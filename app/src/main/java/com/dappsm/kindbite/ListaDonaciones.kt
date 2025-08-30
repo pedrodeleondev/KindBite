@@ -63,14 +63,15 @@ class ListaDonacion : ComponentActivity() {
 @Composable
 fun cardDonante(){
     val donaciones = donacionesBase()
-    LazyColumn {
+    LazyColumn (modifier = Modifier
+        .size(width = 500.dp, height = 700.dp)){
         items (donaciones) { donacion ->
             val textDonacion = buildAnnotatedString {
                 withStyle(SpanStyle(color = Color(0xFFFC8D3F))){
                     append("Donación:")
                 }
                 withStyle(SpanStyle(color = Color.Black)){
-                    append(" ${donacion.tipoDonacion} kgs")
+                    append(" ${donacion.tipoDonacion}")
                 }
             }
             val textCantidad = buildAnnotatedString {
@@ -78,7 +79,7 @@ fun cardDonante(){
                     append("Cantidad:")
                 }
                 withStyle(SpanStyle(color = Color.Black)){
-                    append(" ${donacion.Cantidad}")
+                    append(" ${donacion.Cantidad} kgs")
                 }
             }
             val textDateDonacion = buildAnnotatedString {
@@ -160,7 +161,7 @@ fun cardDonante(){
 
 @Composable
 fun ListaDonaciones(name: String){
-    var bienvenida = "Hola  " + name + "!"
+    var bienvenida = "Hola " + name + "!"
     Column(
         modifier = Modifier.fillMaxSize().background(Color(0xFFFDF9ED)).padding(25.dp),
         verticalArrangement = Arrangement.Top

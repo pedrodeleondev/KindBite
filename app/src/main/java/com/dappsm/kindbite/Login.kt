@@ -55,10 +55,6 @@ class Login : ComponentActivity() {
         }
     }
 }
-
-
-
-
 @Composable
 fun MostrarIS(nC: NavController){
     val vm: LoginViewModel = viewModel()
