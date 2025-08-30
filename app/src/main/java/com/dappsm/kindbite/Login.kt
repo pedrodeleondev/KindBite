@@ -34,8 +34,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.dappsm.kindbite.ui.theme.KindBiteTheme
 
 class Login : ComponentActivity() {
@@ -67,10 +69,12 @@ fun IniciaSesion(modifier: Modifier=Modifier){
     ){
         Column(modifier = Modifier.width(320.dp), verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally){
-            Text("Bienvenidos")
-            Text("INICIA SESIÓN")
+            Text("Bienvenido", fontSize = 20.sp,fontWeight= FontWeight.Thin)
+            Spacer(modifier = Modifier.size(10.dp))
+            Text(text="INICIA SESIÓN", fontWeight= FontWeight.Bold, fontSize = 25.sp,color=Color(0xFFFC8D3F))
+            Spacer(modifier=Modifier.size(30.dp))
             Column(){
-                Text("Nombre:")
+                Text("Nombre de usuario:", fontSize = 20.sp,color=Color(0xFFFC8D3F))
                 OutlinedTextField(
                     value = inputN,
                     onValueChange = { inputN= it },
@@ -82,7 +86,8 @@ fun IniciaSesion(modifier: Modifier=Modifier){
                         unfocusedContainerColor = Color(0xFFFDF9ED)
 
                     ))
-                Text("Contraseña:")
+                Spacer(modifier = Modifier.size(15.dp))
+                Text("Contraseña:",fontSize = 20.sp,color=Color(0xFFFC8D3F))
                 OutlinedTextField(
                     value = inputC,
                     onValueChange = { inputC= it },
@@ -108,7 +113,7 @@ fun IniciaSesion(modifier: Modifier=Modifier){
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFC8D3F)
                 )){
-                Text("Iniciar Sesión")
+                Text("Iniciar Sesión",fontSize = 18.sp)
             }
         }
     }
