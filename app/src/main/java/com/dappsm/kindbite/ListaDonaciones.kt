@@ -114,22 +114,27 @@ fun CardDonante(viewModel: DonacionesViewModel = viewModel()) {
                     .fillMaxWidth()
                     .padding(10.dp)
             ) {
+                Text(textId,
+                    modifier=Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp))
                 Text(
                     text = donacion.donador,
                     textAlign = TextAlign.Center,
                     style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
-                    modifier = Modifier.fillMaxWidth().padding(top = 12.dp)
+                    modifier = Modifier.fillMaxWidth().padding(top = 10.dp)
                 )
                 Spacer(modifier = Modifier.size(9.dp))
-                Text(textId, modifier=Modifier.fillMaxWidth(), textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp))
-                Text(textProducto, modifier=Modifier.fillMaxWidth(),textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp))
-                Text(textCantidad, modifier=Modifier.fillMaxWidth(),textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp))
-                Text(textFecha, modifier=Modifier.fillMaxWidth(),textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp))
+                Text(textProducto,
+                    modifier=Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp))
+                Text(textCantidad,
+                    modifier=Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp))
+                Text(textFecha,
+                    modifier=Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center, style = TextStyle(fontSize = 14.sp))
                 Spacer(modifier = Modifier.size(20.dp))
-                Divider(
-                    modifier = Modifier.fillMaxWidth().height(1.dp),
-                    color = Color(0xFFFC8D3F)
-                )
+                Divider(modifier = Modifier.fillMaxWidth().height(1.dp), color = Color(0xFFFC8D3F))
             }
         }
     }
