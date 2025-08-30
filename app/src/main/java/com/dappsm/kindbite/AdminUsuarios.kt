@@ -3,16 +3,15 @@ package com.dappsm.kindbite
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,104 +24,127 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.lazy.items
-
-data class Donaciones(val id:Int, val nameDonante:String, val tipoDonacion:String, val Cantidad:Double, val DateDonacion: String, val StatusDonacion:String)
-
-fun donacionesBase():List<Donaciones>{
-    val donaciones = listOf(
-        Donaciones(0,"Fernanda Gonzales","Arroz", 30.0,"20/08/25","En camino"),
-        Donaciones(1,"Mario Esparza", "Pollo Crudo(pechuga)", 90.0,"23/08/25","En fundación"),
-        Donaciones(2,"María Blaz","Variedad de verduras",  20.0,"07/08/25","En fundación"),
-        Donaciones(3,"Bernardo Lopez", "Leguminosas", 120.0,"28/07/25","En fundación"),
-        Donaciones(4,"Diana Hernandez", "Frijol", 20.0,"22/05/25","En fundación"),
-        Donaciones(5,"Bernardo Lopez", "Cereales", 15.0,"20/05/25","En fundación")
-    )
-    return donaciones
-}
-
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 
 @Composable
-fun cardDonante(){
-    val donaciones = donacionesBase()
-    LazyColumn {
-        items (donaciones) { donacion ->
+fun cardUsuarios(){
+    val usuarios = usuariosBase()
+    LazyColumn (modifier = Modifier.padding(12.dp)) {
+        items (usuarios) { usuario ->
             Card(
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFDF9ED)),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFFDF9ED)),
                 shape = RectangleShape,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp)
             ) {
                 Text(
-                    text = "${donacion.nameDonante}",
-                    textAlign = TextAlign.Center,
-                    style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
+                    text = "Id: ${usuario.id}",
+                    style = TextStyle(fontSize = 16.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.SemiBold),
                     modifier = Modifier.fillMaxWidth().padding(top = 15.dp)
                 )
                 Spacer(modifier = Modifier.size(9.dp))
                 Text(
-                    "Donación: ${donacion.tipoDonacion} kgs",
-                    textAlign = TextAlign.Center,
+                    "Nombre de usuario: ${usuario.nombre}",
                     style = TextStyle(
-                        fontSize = 14.sp,
+                        fontSize = 16.sp,
                         color = Color(0xFFFC8D3F),
                         fontWeight = FontWeight.Normal
                     ),
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
                 Text(
-                    "Cantidad: ${donacion.Cantidad} kgs",
-                    textAlign = TextAlign.Center,
+                    "Tipo de usuario: ${usuario.tipoUsuario}",
                     style = TextStyle(
-                        fontSize = 14.sp,
+                        fontSize = 16.sp,
                         color = Color(0xFFFC8D3F),
                         fontWeight = FontWeight.Normal
                     ),
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
                 Text(
-                    "Fecha de donación: ${donacion.DateDonacion}",
-                    textAlign = TextAlign.Center,
+                    "Correo: ${usuario.email}",
                     style = TextStyle(
-                        fontSize = 14.sp,
+                        fontSize = 16.sp,
                         color = Color(0xFFFC8D3F),
                         fontWeight = FontWeight.Normal
                     ),
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
                 Text(
-                    "Estado de la donación: ${donacion.StatusDonacion}",
-                    textAlign = TextAlign.Center,
+                    "Contraseña: ${usuario.contrasena}",
                     style = TextStyle(
-                        fontSize = 14.sp,
+                        fontSize = 16.sp,
                         color = Color(0xFFFC8D3F),
                         fontWeight = FontWeight.Normal
                     ),
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 15.dp)
                 )
-
-                Divider(modifier = Modifier.fillMaxWidth().height(1.dp), color = Color(0xFFFC8D3F))
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListaDonaciones(name: String){
-    var bienvenida = "Hola  " + name + "!"
+fun barraTop(){
+    Scaffold( modifier = Modifier.padding(5.dp),
+        topBar = {
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFFFDF9ED),
+                    titleContentColor = Color(0xFFFC8D3F),
+                ),
+                navigationIcon = {
+                    IconButton(onClick = {"Dirección a Lista donaciones"}) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "",
+                            tint = Color(0xFFFC8D3F)
+                        )
+                    }
+                },
+                title = {
+                    Text("Administrar usuarios", modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Right,
+                        style =
+                            TextStyle(
+                                fontSize = 25.sp,
+                                color = Color(0xFFFC8D3F),
+                                fontWeight = FontWeight.ExtraBold)
+                    )
+                }
+            )
+        },
+        content = { innerPadding ->
+            ListaUsuarios(innerPadding)
+        }
+    )
+}
+
+@Composable
+fun ListaUsuarios(innerPadding: PaddingValues) {
     Column(
-        modifier = Modifier.fillMaxSize().background(Color(0xFFFDF9ED)).padding(25.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFFDF9ED))
+            .padding(innerPadding),
         verticalArrangement = Arrangement.Top
-    ){
-        Text("Lista de donaciones", style = TextStyle(fontSize = 24.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.Bold))
-        Text(text = bienvenida, style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.ExtraLight))
-        Spacer(modifier = Modifier.size(15.dp))
-        cardDonante()
+    ) {
+        cardUsuarios()
     }
 }
 
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun MostrarS(){
-    ListaDonaciones(name = "Frida")
+fun Mostrar(){
+    barraTop()
 }
