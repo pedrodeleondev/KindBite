@@ -97,14 +97,14 @@ fun cardUsuarios(){
                 Text(
                     textName,
                     style = TextStyle(
-                        fontSize = 16.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.Medium
+                        fontSize = 16.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.Normal
                     ),
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
                 Text(
                     textTipoUser,
                     style = TextStyle(
-                        fontSize = 16.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.Medium
+                        fontSize = 16.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.Normal
                     ),
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
@@ -113,7 +113,7 @@ fun cardUsuarios(){
                     style = TextStyle(
                         fontSize = 16.sp,
                         color = Color(0xFFFC8D3F),
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Normal
                     ),
                     modifier = Modifier.fillMaxWidth().padding(top = 3.dp, bottom = 2.dp)
                 )
