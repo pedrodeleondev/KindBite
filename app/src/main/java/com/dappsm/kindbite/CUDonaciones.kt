@@ -182,7 +182,7 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
             modifier = Modifier.fillMaxWidth(),
             value = cantidad,
             onValueChange = {cantidad = it},
-            label = { Text("ej. 120.0",
+            label = { Text("ej. 120 kgs",
                 color=Color(0xFF7E7B7B), fontWeight = FontWeight.Light)
             },
             colors = OutlinedTextFieldDefaults.colors(
@@ -244,4 +244,3 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
 fun MostrarCUD(navController: NavController){
     barraLateralTop(navController)
 }
-
