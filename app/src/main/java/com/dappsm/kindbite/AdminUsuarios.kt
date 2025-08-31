@@ -35,6 +35,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import androidx.navigation.NavController
 
 @Composable
 fun cardUsuarios(){
@@ -133,7 +134,7 @@ fun cardUsuarios(){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun barraTop(){
+fun barraTop(navController: NavController){
     Scaffold( modifier = Modifier.padding(5.dp),
         topBar = {
             TopAppBar(
@@ -183,6 +184,6 @@ fun ListaUsuarios(innerPadding: PaddingValues) {
 
 
 @Composable
-fun MostrarAdminUsuarios(){
-    barraTop()
+fun MostrarAdminUsuarios(navController: NavController){
+    barraTop(navController)
 }
