@@ -46,6 +46,7 @@ class CUDonaciones : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             KindBiteTheme {
+                barraLateralTop()
             }
         }
     }
@@ -117,17 +118,16 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = ID,
-            onValueChange = { name = it },
+            onValueChange = { ID = it },
             label = {
                 Text("Al dar click se autocompletará",
-                color=Color(0xFF7E7B7B), fontWeight = FontWeight.Light)
+                    color=Color(0xFF7E7B7B), fontWeight = FontWeight.Light)
             },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFFFC8D3F),
                 unfocusedBorderColor = Color(0xFFFC8D3F),
                 focusedContainerColor = Color(0xFFFDF9ED),
                 unfocusedContainerColor = Color(0xFFFDF9ED)
-
             )
         )
 
@@ -145,7 +145,6 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
                 unfocusedBorderColor = Color(0xFFFC8D3F),
                 focusedContainerColor = Color(0xFFFDF9ED),
                 unfocusedContainerColor = Color(0xFFFDF9ED)
-
             )
         )
 
@@ -163,7 +162,6 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
                 unfocusedBorderColor = Color(0xFFFC8D3F),
                 focusedContainerColor = Color(0xFFFDF9ED),
                 unfocusedContainerColor = Color(0xFFFDF9ED)
-
             )
         )
 
@@ -181,7 +179,6 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
                 unfocusedBorderColor = Color(0xFFFC8D3F),
                 focusedContainerColor = Color(0xFFFDF9ED),
                 unfocusedContainerColor = Color(0xFFFDF9ED)
-
             )
         )
 
@@ -199,11 +196,23 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
                 unfocusedBorderColor = Color(0xFFFC8D3F),
                 focusedContainerColor = Color(0xFFFDF9ED),
                 unfocusedContainerColor = Color(0xFFFDF9ED)
-
             )
         )
 
-        Button(onClick = {},
+        Button(onClick = {
+            if(ID == ""){
+                val rid = DonacionesRepo.obtenerDonaciones().size + 1
+                val nueva = Donacion(rid,name,alimento,cantidad,dateDonacion)
+                DonacionesRepo.agregarDonacion(nueva)
+            } else {
+                DonacionesRepo.editarDonacion(ID,name,alimento,cantidad,dateDonacion)
+            }
+            ID=""
+            name=""
+            alimento=""
+            cantidad=""
+            dateDonacion=""
+        },
             shape = RoundedCornerShape(15.dp),
             modifier=Modifier
                 .fillMaxWidth()

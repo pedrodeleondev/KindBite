@@ -15,6 +15,10 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -28,20 +32,16 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
-import android.os.Bundle
 import androidx.activity.ComponentActivity
+import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dappsm.kindbite.ui.theme.KindBiteTheme
 
 data class Donaciones(val id:Int, val nameDonante:String, val tipoDonacion:String, val Cantidad:Double, val DateDonacion: String, val StatusDonacion:String)
 
 fun donacionesBase():List<Donaciones>{
-    val donaciones = listOf(
+    return listOf(
         Donaciones(0,"Fernanda Gonzales","Arroz", 30.0,"20/08/25","En camino"),
         Donaciones(1,"Mario Esparza", "Pollo Crudo(pechuga)", 90.0,"23/08/25","En fundación"),
         Donaciones(2,"María Blaz","Variedad de verduras",  20.0,"07/08/25","En fundación"),
@@ -49,7 +49,6 @@ fun donacionesBase():List<Donaciones>{
         Donaciones(4,"Diana Hernandez", "Frijol", 20.0,"22/05/25","En fundación"),
         Donaciones(5,"Bernardo Lopez", "Cereales", 15.0,"20/05/25","En fundación")
     )
-    return donaciones
 }
 
 class ListaDonacion : ComponentActivity() {
@@ -58,53 +57,39 @@ class ListaDonacion : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             KindBiteTheme {
-
+                ListaDonaciones("Invitado")
             }
         }
     }
 }
 
 @Composable
-fun CardDonante(viewModel: DonacionesViewModel = viewModel()) {
-    val donaciones by viewModel.donaciones.observeAsState(emptyList())
+fun CardDonante() {
+    var donaciones by remember { mutableStateOf(DonacionesRepo.obtenerDonaciones()) }
+
+    donaciones = DonacionesRepo.obtenerDonaciones()
 
     LazyColumn (modifier = Modifier.size(width = 500.dp, height = 700.dp)){
         items(donaciones) { donacion ->
 
             val textId = buildAnnotatedString {
-                withStyle(SpanStyle(color = Color(0xFFFC8D3F))) {
-                    append("ID:")
-                }
-                withStyle(SpanStyle(color = Color.Black)) {
-                    append(" ${donacion.id}")
-                }
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))) { append("ID:") }
+                withStyle(SpanStyle(color = Color.Black)) { append(" ${donacion.id}") }
             }
 
             val textProducto = buildAnnotatedString {
-                withStyle(SpanStyle(color = Color(0xFFFC8D3F))) {
-                    append("Donación:")
-                }
-                withStyle(SpanStyle(color = Color.Black)) {
-                    append(" ${donacion.producto}")
-                }
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))) { append("Donación:") }
+                withStyle(SpanStyle(color = Color.Black)) { append(" ${donacion.producto}") }
             }
 
             val textCantidad = buildAnnotatedString {
-                withStyle(SpanStyle(color = Color(0xFFFC8D3F))) {
-                    append("Cantidad:")
-                }
-                withStyle(SpanStyle(color = Color.Black)) {
-                    append(" ${donacion.cantidad}")
-                }
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))) { append("Cantidad:") }
+                withStyle(SpanStyle(color = Color.Black)) { append(" ${donacion.cantidad}") }
             }
 
             val textFecha = buildAnnotatedString {
-                withStyle(SpanStyle(color = Color(0xFFFC8D3F))) {
-                    append("Fecha de donación:")
-                }
-                withStyle(SpanStyle(color = Color.Black)) {
-                    append(" ${donacion.fecha}")
-                }
+                withStyle(SpanStyle(color = Color(0xFFFC8D3F))) { append("Fecha de donación:") }
+                withStyle(SpanStyle(color = Color.Black)) { append(" ${donacion.fecha}") }
             }
 
             Card(
@@ -140,9 +125,8 @@ fun CardDonante(viewModel: DonacionesViewModel = viewModel()) {
     }
 }
 
-
 @Composable
-fun ListaDonaciones(nombre: String, viewModel: DonacionesViewModel = viewModel()) {
+fun ListaDonaciones(nombre: String) {
     val bienvenida = "Hola $nombre!"
     Column(
         modifier = Modifier
@@ -151,8 +135,7 @@ fun ListaDonaciones(nombre: String, viewModel: DonacionesViewModel = viewModel()
             .padding(25.dp),
         verticalArrangement = Arrangement.Top
     ) {
-        Text(
-            "Lista de donaciones",
+        Text("Lista de donaciones",
             style = TextStyle(fontSize = 24.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.Bold)
         )
         Text(
@@ -160,7 +143,7 @@ fun ListaDonaciones(nombre: String, viewModel: DonacionesViewModel = viewModel()
             style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.ExtraLight)
         )
         Spacer(modifier = Modifier.size(15.dp))
-        CardDonante(viewModel)
+        CardDonante()
     }
 }
 
