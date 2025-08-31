@@ -98,7 +98,6 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
     var dateDonacion by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -134,7 +133,6 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
                 Text("Al dar click se autocompletará",
                     color=Color(0xFF7E7B7B), fontWeight = FontWeight.Light)
             },
-            singleLine = true,
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFFFC8D3F),
                 unfocusedBorderColor = Color(0xFFFC8D3F),
@@ -152,7 +150,6 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
             label = { Text("ej. Pablo Hernandez",
                 color=Color(0xFF7E7B7B), fontWeight = FontWeight.Light)
             },
-            singleLine = true,
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFFFC8D3F),
                 unfocusedBorderColor = Color(0xFFFC8D3F),
@@ -170,7 +167,6 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
             label = { Text("ej. Carne cruda (milanesa)",
                 color=Color(0xFF7E7B7B), fontWeight = FontWeight.Light)
             },
-            singleLine = true,
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFFFC8D3F),
                 unfocusedBorderColor = Color(0xFFFC8D3F),
@@ -185,10 +181,9 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
             modifier = Modifier.fillMaxWidth(),
             value = cantidad,
             onValueChange = {cantidad = it},
-            label = { Text("ej. 120 kgs",
+            label = { Text("ej. 120.0",
                 color=Color(0xFF7E7B7B), fontWeight = FontWeight.Light)
             },
-            singleLine = true,
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFFFC8D3F),
                 unfocusedBorderColor = Color(0xFFFC8D3F),
@@ -208,7 +203,6 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
             label = { Text("ej. 1/10/25",
                 color=Color(0xFF7E7B7B), fontWeight = FontWeight.Light)
             },
-            singleLine = true,
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFFFC8D3F),
                 unfocusedBorderColor = Color(0xFFFC8D3F),

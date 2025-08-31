@@ -45,20 +45,20 @@ class Inventario : ComponentActivity() {
     }
 }
 
-data class Inventarios(val id:Int, val tipoDonacion:String, val Cantidad:String)
+data class Inventarios(val id:Int, val tipoDonacion:String, val Cantidad:Double)
 
 @Composable
-fun cardInventario() {
+fun cardInventario(){
     var listaInventario by remember { mutableStateOf(calcularInventario()) }
     listaInventario = calcularInventario()
     LazyColumn(modifier = Modifier.fillMaxWidth().fillMaxSize()) {
-        items(listaInventario) { item ->
+        items(listaInventario) { alimento ->
             val textoAlimento = buildAnnotatedString {
                 withStyle(SpanStyle(color = Color.Black, fontWeight = FontWeight.Medium)) {
                     append("- Alimento:")
                 }
                 withStyle(SpanStyle(color = Color.Black)) {
-                    append(" ${item.tipoDonacion}")
+                    append(" ${alimento.tipoDonacion}")
                 }
             }
             val textoCantidad = buildAnnotatedString {
@@ -66,7 +66,7 @@ fun cardInventario() {
                     append("  Cantidad:")
                 }
                 withStyle(SpanStyle(color = Color.Black)) {
-                    append(" ${item.Cantidad} kgs")
+                    append(" ${alimento.Cantidad} kgs")
                 }
             }
             Card(
@@ -76,9 +76,8 @@ fun cardInventario() {
                     .fillMaxWidth()
                     .padding(10.dp)
             ) {
-                Text(
-                    textoAlimento,
-                    modifier = Modifier.fillMaxWidth(),
+                Text(textoAlimento,
+                    modifier=Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Left,
                     style = TextStyle(fontSize = 18.sp)
                 )
@@ -96,50 +95,61 @@ fun cardInventario() {
 }
 
 fun calcularInventario(): List<Inventarios> {
-    val donaciones = DonacionesRepo.obtenerDonaciones()
-    val lista = mutableListOf<Inventarios>()
-    var id = 0
-    for (i in 0 until donaciones.size) {
-        val donacion = donaciones[i]
-        val nombre = donacion.producto
-        val cantidad = donacion.cantidad
-        lista.add(Inventarios(id, nombre, cantidad))
-        id++
+    val donacionesActuales = DonacionesRepo.obtenerDonaciones()
+    val acumulador = mutableMapOf<String,Double>()
+    for (i in 0 until donacionesActuales.size) {
+        val donacion = donacionesActuales[i]
+        val cantidadTexto = donacion.cantidad
+        var cantidadNumerica = 0.0
+        try {
+            cantidadNumerica = cantidadTexto.replace("kgs","").replace("KGS","").trim().toDouble()
+        } catch (e:Exception) {
+            cantidadNumerica = 0.0
+        }
+        val claveProducto = donacion.producto.lowercase().trim()
+        if (acumulador.containsKey(claveProducto)) {
+            val cantidadAnterior = acumulador[claveProducto] ?: 0.0
+            acumulador[claveProducto] = cantidadAnterior + cantidadNumerica
+        } else {
+            acumulador[claveProducto] = cantidadNumerica
+        }
     }
-    return lista
+    val listaFinal = mutableListOf<Inventarios>()
+    var indice = 0
+    for (entrada in acumulador.entries) {
+        val nombreNormalizado = entrada.key.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+        listaFinal.add(Inventarios(indice, nombreNormalizado, entrada.value))
+        indice++
+    }
+    return listaFinal
 }
 
 @Composable
-fun muestraInventario() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxSize()
-            .background(Color(0xFFFDF9ED))
-            .padding(10.dp)
+fun muestraInventario(){
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .fillMaxSize()
+        .background(Color(0xFFFDF9ED))
+        .padding(10.dp)
     ) {
-        Text(
-            modifier = Modifier.padding(top = 18.dp),
+        Text(modifier = Modifier.padding(top = 18.dp),
             text = "Inventario de alimentos",
             style = TextStyle(fontSize = 24.sp, color = Color(0xFFFC8D3F), fontWeight = FontWeight.Bold)
         )
-        Text(
-            modifier = Modifier.padding(top = 2.dp),
+        Text(modifier = Modifier.padding(top = 2.dp),
             text = "Alimentos disponibles:",
             style = TextStyle(fontSize = 21.sp, fontWeight = FontWeight.ExtraLight)
         )
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxSize()
-                .background(Color(0xFFFDF9ED))
-                .padding(top = 10.dp)
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxSize()
+            .background(Color(0xFFFDF9ED))
+            .padding(top = 10.dp)
         ) {
             cardInventario()
         }
     }
 }
-
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable

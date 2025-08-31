@@ -38,16 +38,16 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.dappsm.kindbite.ui.theme.KindBiteTheme
 
-data class Donaciones(val id:Int, val nameDonante:String, val tipoDonacion:String, val Cantidad:String, val DateDonacion: String, val StatusDonacion:String)
+data class Donaciones(val id:Int, val nameDonante:String, val tipoDonacion:String, val Cantidad:Double, val DateDonacion: String, val StatusDonacion:String)
 
 fun donacionesBase():List<Donaciones>{
     return listOf(
-        Donaciones(0,"Fernanda Gonzales","Arroz", "30kg","20/08/25","En camino"),
-        Donaciones(1,"Mario Esparza", "Pollo Crudo(pechuga)", "90kg","23/08/25","En fundación"),
-        Donaciones(2,"María Blaz","Variedad de verduras",  "20kg","07/08/25","En fundación"),
-        Donaciones(3,"Bernardo Lopez", "Leguminosas", "120kg","28/07/25","En fundación"),
-        Donaciones(4,"Diana Hernandez", "Frijol", "20kg","22/05/25","En fundación"),
-        Donaciones(5,"Bernardo Lopez", "Cereales", "15kg","20/05/25","En fundación")
+        Donaciones(0,"Fernanda Gonzales","Arroz", 30.0,"20/08/25","En camino"),
+        Donaciones(1,"Mario Esparza", "Pollo Crudo(pechuga)", 90.0,"23/08/25","En fundación"),
+        Donaciones(2,"María Blaz","Variedad de verduras",  20.0,"07/08/25","En fundación"),
+        Donaciones(3,"Bernardo Lopez", "Leguminosas", 120.0,"28/07/25","En fundación"),
+        Donaciones(4,"Diana Hernandez", "Frijol", 20.0,"22/05/25","En fundación"),
+        Donaciones(5,"Bernardo Lopez", "Cereales", 15.0,"20/05/25","En fundación")
     )
 }
 
