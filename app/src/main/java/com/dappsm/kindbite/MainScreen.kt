@@ -72,10 +72,13 @@ fun NavigationGraph(navController: NavHostController,  modifier: Modifier = Modi
             MostrarLD()
         }
         composable(NavItem.User.route){
-            MostrarCUD()
+            MostrarCUD(navController)
         }
         composable(NavItem.Inventory.route){
             MostrarIN()
+        }
+        composable("AdminUsuarios") {
+            MostrarAdminUsuarios()
         }
     }
 }

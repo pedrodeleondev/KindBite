@@ -142,7 +142,7 @@ fun barraTop(){
                     titleContentColor = Color(0xFFFC8D3F),
                 ),
                 navigationIcon = {
-                    IconButton(onClick = {"Dirección a Lista donaciones"}) {
+                    IconButton(onClick = {navController.popBackStack()}) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "",
@@ -182,8 +182,7 @@ fun ListaUsuarios(innerPadding: PaddingValues) {
 }
 
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun Mostrar(){
+fun MostrarAdminUsuarios(){
     barraTop()
 }

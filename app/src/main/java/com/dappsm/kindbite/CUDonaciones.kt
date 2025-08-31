@@ -38,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.dappsm.kindbite.ui.theme.KindBiteTheme
 
 class CUDonaciones : ComponentActivity() {
@@ -54,7 +55,7 @@ class CUDonaciones : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun barraLateralTop(){
+fun barraLateralTop(navController: NavController){
     Scaffold(modifier = Modifier.padding(5.dp),
         topBar = {
             TopAppBar(
@@ -64,7 +65,9 @@ fun barraLateralTop(){
                     titleContentColor = Color(0xFFFC8D3F),
                 ),
                 actions = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = {
+                        navController.navigate("AdminUsuarios")
+                    }) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.admin),
                             contentDescription = "",
@@ -225,8 +228,7 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun MostrarCUD(){
-    barraLateralTop()
+fun MostrarCUD(navController: NavController){
+    barraLateralTop(navController)
 }
