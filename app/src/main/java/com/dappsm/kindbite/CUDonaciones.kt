@@ -1,6 +1,7 @@
 package com.dappsm.kindbite
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -32,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -47,7 +49,6 @@ class CUDonaciones : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             KindBiteTheme {
-                barraLateralTop()
             }
         }
     }
@@ -56,6 +57,7 @@ class CUDonaciones : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun barraLateralTop(navController: NavController){
+    val context = LocalContext.current
     Scaffold(modifier = Modifier.padding(5.dp),
         topBar = {
             TopAppBar(
@@ -66,7 +68,11 @@ fun barraLateralTop(navController: NavController){
                 ),
                 actions = {
                     IconButton(onClick = {
-                        navController.navigate("AdminUsuarios")
+                        if(Sesion.usuarioActual?.tipoUsuario=="admin"){
+                            navController.navigate("AdminUsuarios")
+                        }else{
+                            Toast.makeText(context, "No tienes permiso para entrar a esta ventana", Toast.LENGTH_SHORT).show()
+                        }
                     }) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.admin),
@@ -188,7 +194,9 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
         Spacer(modifier=Modifier.padding(top = 20.dp))
         Text("Fecha de donación:", fontSize = 15.sp,color=Color(0xFFFC8D3F))
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth().padding(top = 2.dp, bottom = 5.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 2.dp, bottom = 5.dp),
             value = dateDonacion,
             onValueChange = {dateDonacion = it},
             label = { Text("ej. 1/10/25",
@@ -232,3 +240,4 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
 fun MostrarCUD(navController: NavController){
     barraLateralTop(navController)
 }
+
