@@ -52,15 +52,20 @@ class MainScreen : ComponentActivity() {
 @Composable
 fun ScaffoldContent() {
     val navController = rememberNavController()
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = backStackEntry?.destination?.route
 
     Scaffold(
-        bottomBar = { BottomNavigationContent(navController) }
-    ) {  innerPadding ->
+        bottomBar = {
+            if (currentRoute != "AdminUsuarios") {
+                BottomNavigationContent(navController)
+            }
+        }
+    ) { innerPadding ->
         NavigationGraph(
             navController = navController,
             modifier = Modifier.padding(innerPadding)
         )
-
     }
 }
 
@@ -78,7 +83,7 @@ fun NavigationGraph(navController: NavHostController,  modifier: Modifier = Modi
             MostrarIN()
         }
         composable("AdminUsuarios") {
-            MostrarAdminUsuarios()
+            MostrarAdminUsuarios(navController)
         }
     }
 }
@@ -138,3 +143,4 @@ fun BottomNavigationContent(navController: NavHostController) {
 fun MostrarMainScreen(){
     ScaffoldContent()
 }
+
