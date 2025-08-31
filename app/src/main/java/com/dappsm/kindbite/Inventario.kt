@@ -66,7 +66,7 @@ fun cardInventario() {
                     append("  Cantidad:")
                 }
                 withStyle(SpanStyle(color = Color.Black)) {
-                    append(" ${item.Cantidad}")
+                    append(" ${item.Cantidad} kgs")
                 }
             }
             Card(
