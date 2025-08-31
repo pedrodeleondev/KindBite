@@ -182,7 +182,7 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
             modifier = Modifier.fillMaxWidth(),
             value = cantidad,
             onValueChange = {cantidad = it},
-            label = { Text("ej. 120 kgs",
+            label = { Text("ej. 120.0",
                 color=Color(0xFF7E7B7B), fontWeight = FontWeight.Light)
             },
             colors = OutlinedTextFieldDefaults.colors(

@@ -11,10 +11,10 @@ data class Donacion(
 object DonacionesRepo {
 
     private var donaciones : MutableList<Donacion> = mutableListOf(
-        Donacion(1,"Fernanda Gonzalez","Arroz","30kgs","20/08/25"),
-        Donacion(2,"Mario Esparza","Pollo crudo (pechuga)","90kgs","23/08/25"),
-        Donacion(3,"María Blas","Variedad de verduras","20kgs","07/08/25"),
-        Donacion(4,"Bernardo Lopez","Leguminosas","120kgs","28/07/25")
+        Donacion(1,"Fernanda Gonzalez","Arroz","30","20/08/25"),
+        Donacion(2,"Mario Esparza","Pollo crudo (pechuga)","90","23/08/25"),
+        Donacion(3,"María Blas","Variedad de verduras","20","07/08/25"),
+        Donacion(4,"Bernardo Lopez","Leguminosas","120","28/07/25")
     )
 
     fun obtenerDonaciones() : List<Donacion> {

@@ -84,7 +84,7 @@ fun CardDonante() {
 
             val textCantidad = buildAnnotatedString {
                 withStyle(SpanStyle(color = Color(0xFFFC8D3F))) { append("Cantidad:") }
-                withStyle(SpanStyle(color = Color.Black)) { append(" ${donacion.cantidad}") }
+                withStyle(SpanStyle(color = Color.Black)) { append(" ${donacion.cantidad} kgs") }
             }
 
             val textFecha = buildAnnotatedString {
