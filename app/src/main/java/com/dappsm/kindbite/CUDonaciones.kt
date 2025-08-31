@@ -96,6 +96,8 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
     var alimento by remember { mutableStateOf("") }
     var cantidad by remember { mutableStateOf("") }
     var dateDonacion by remember { mutableStateOf("") }
+    val context = LocalContext.current
+
 
     Column(
         modifier = Modifier
@@ -211,12 +213,14 @@ fun CUDonacion(innerPaddingValues: PaddingValues){
         )
 
         Button(onClick = {
-            if(ID == ""){
+            if(ID == "" && name.isNotEmpty() && alimento.isNotEmpty() && cantidad.isNotEmpty() && dateDonacion.isNotEmpty()){
                 val rid = DonacionesRepo.obtenerDonaciones().size + 1
                 val nueva = Donacion(rid,name,alimento,cantidad,dateDonacion)
                 DonacionesRepo.agregarDonacion(nueva)
-            } else {
+            } else if (ID!=""){
                 DonacionesRepo.editarDonacion(ID,name,alimento,cantidad,dateDonacion)
+            }else{
+                Toast.makeText(context, "Llenaste mal un campo o hiciste el procedimiento incorrecto", Toast.LENGTH_SHORT).show()
             }
             ID=""
             name=""
